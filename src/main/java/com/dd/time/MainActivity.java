@@ -12,6 +12,12 @@ public class MainActivity
     {
         CheckTimeHelper checkTimeHelper = new CheckTimeHelper();
         int time = checkTimeHelper.getCurrentTime(); // get current time
-        new check_time_form(checkTimeHelper.getCurrentText(time)); // creating form
+
+        try {
+            new check_time_form(checkTimeHelper.getCurrentText(time)); // creating form
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print("\n" + checkTimeHelper.getCurrentText(time));
+        }
     }
 }

@@ -72,10 +72,11 @@ public class CheckTimeHelper {
             print("getLocation ---" +  bundleDefault.getLocale().getDisplayLanguage());
 
             return bundleDefault;
-        }catch (Exception e){
+       }catch (Exception e){
             defaultLocale = new Locale("en", "US", "WIN");
             bundleDefault = ResourceBundle.getBundle("textToForm", defaultLocale);
-            print(e.getMessage());return bundleDefault;
+            print(e.getMessage());
+        return bundleDefault;
 
         }
 
