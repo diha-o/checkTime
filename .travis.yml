@@ -1,3 +1,3 @@
 language: java
 
-script: mvn main -B
+script:mvn -Dtest=MainActivity test
