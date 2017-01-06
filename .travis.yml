@@ -6,7 +6,7 @@ jdk:
 before_script:
  - echo "Start build"
 
-script: mvn main
+script: mvn exec:java -Dexec.mainClass="com.dd.time.MainActivity"
 
 after_success:
  - echo "Build was successful. $TRAVIS_TEST_RESULT"
