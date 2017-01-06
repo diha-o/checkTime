@@ -63,14 +63,21 @@ public class CheckTimeHelper {
     }
 
     private ResourceBundle getLocale(){
+        Locale defaultLocale;
+        ResourceBundle bundleDefault;
         try {
-            Locale defaultLocale = Locale.getDefault();
-            ResourceBundle bundleDefault = ResourceBundle.getBundle("textToForm", defaultLocale);
+            defaultLocale = Locale.getDefault();
+            bundleDefault = ResourceBundle.getBundle("textToForm", defaultLocale);
 
             print("getLocation ---" +  bundleDefault.getLocale().getDisplayLanguage());
 
             return bundleDefault;
-        }catch (Exception e){print(e.getMessage());return null;}
+        }catch (Exception e){
+            defaultLocale = new Locale("en", "US", "WIN");
+            bundleDefault = ResourceBundle.getBundle("textToForm", defaultLocale);
+            print(e.getMessage());return bundleDefault;
+
+        }
 
     }
 
