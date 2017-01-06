@@ -7,7 +7,7 @@ jdk:
 before_script:
  - echo "Start build"
 
-script: mvn test -f ./source/pom.xml
+script: mvn test -f /pom.xml
 
 after_success:
  - echo "Build was successful. $TRAVIS_TEST_RESULT"
