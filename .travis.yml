@@ -1,0 +1,12 @@
+language: java
+jdk:
+  - oraclejdk8
+  - oraclejdk7
+
+before_script:
+ - echo "Start build"
+
+script: mvn exec:java -Dexec.mainClass="com.dd.time.MainActivity"
+
+after_success:
+ - echo "Build was successful. $TRAVIS_TEST_RESULT"
