@@ -6,7 +6,7 @@ jdk:
 before_script:
  - echo "Start build"
 
-script: mvn test
+script: mvn main
 
 after_success:
  - echo "Build was successful. $TRAVIS_TEST_RESULT"
