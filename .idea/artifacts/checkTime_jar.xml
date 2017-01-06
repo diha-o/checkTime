@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="checkTime:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/checkTime_jar</output-path>
+    <root id="archive" name="checkTime.jar">
+      <element id="module-output" name="checkTime" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_checktime" default="compile.module.checktime">
+  <dirname property="module.checktime.basedir" file="${ant.file.module_checktime}"/>
+  
+  <property name="module.jdk.home.checktime" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.checktime" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.checktime" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.checktime" value="-encoding UTF-8 -source 1.5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="checktime.output.dir" value="${module.checktime.basedir}/target/classes"/>
+  <property name="checktime.testoutput.dir" value="${module.checktime.basedir}/target/test-classes"/>
+  
+  <path id="checktime.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="checktime.module.production.classpath">
+    <path refid="${module.jdk.classpath.checktime}"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+  </path>
+  
+  <path id="checktime.runtime.production.module.classpath">
+    <pathelement location="${checktime.output.dir}"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+  </path>
+  
+  <path id="checktime.module.classpath">
+    <path refid="${module.jdk.classpath.checktime}"/>
+    <pathelement location="${checktime.output.dir}"/>
+    <path refid="library.maven:_junit:junit:3.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+  </path>
+  
+  <path id="checktime.runtime.module.classpath">
+    <pathelement location="${checktime.testoutput.dir}"/>
+    <pathelement location="${checktime.output.dir}"/>
+    <path refid="library.maven:_junit:junit:3.8.1.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.5.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.checktime">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.checktime">
+    <patternset refid="excluded.from.module.checktime"/>
+  </patternset>
+  
+  <path id="checktime.module.sourcepath">
+    <dirset dir="${module.checktime.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/properties"/>
+    </dirset>
+  </path>
+  
+  <path id="checktime.module.test.sourcepath">
+    <dirset dir="${module.checktime.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.checktime" depends="compile.module.checktime.production,compile.module.checktime.tests" description="Compile module checkTime"/>
+  
+  <target name="compile.module.checktime.production" depends="register.custom.compilers" description="Compile module checkTime; production classes">
+    <mkdir dir="${checktime.output.dir}"/>
+    <javac2 destdir="${checktime.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.checktime}/javac">
+      <compilerarg line="${compiler.args.checktime}"/>
+      <bootclasspath refid="checktime.module.bootclasspath"/>
+      <classpath refid="checktime.module.production.classpath"/>
+      <src refid="checktime.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.checktime"/>
+    </javac2>
+    
+    <copy todir="${checktime.output.dir}">
+      <fileset dir="${module.checktime.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.checktime.basedir}/src/properties">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.checktime.tests" depends="register.custom.compilers,compile.module.checktime.production" description="compile module checkTime; test classes" unless="skip.tests">
+    <mkdir dir="${checktime.testoutput.dir}"/>
+    <javac2 destdir="${checktime.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.checktime}/javac">
+      <compilerarg line="${compiler.args.checktime}"/>
+      <bootclasspath refid="checktime.module.bootclasspath"/>
+      <classpath refid="checktime.module.classpath"/>
+      <src refid="checktime.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.checktime"/>
+    </javac2>
+    
+    <copy todir="${checktime.testoutput.dir}">
+      <fileset dir="${module.checktime.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.checktime" description="cleanup module">
+    <delete dir="${checktime.output.dir}"/>
+    <delete dir="${checktime.testoutput.dir}"/>
+  </target>
+</project>
