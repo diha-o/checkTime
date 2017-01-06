@@ -1,10 +1,13 @@
 language: java
-sudo: false
+jdk:
+  - oraclejdk8
+  - oraclejdk7
+  - openjdk7
 
 before_script:
  - echo "Start build"
 
-script: ant main
+script: mvn test -f ./source/pom.xml
 
 after_success:
  - echo "Build was successful. $TRAVIS_TEST_RESULT"
