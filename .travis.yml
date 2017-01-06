@@ -1,4 +1,10 @@
 language: java
 sudo: false
 
-script: mvn compile
+before_script:
+ - echo "Start build"
+
+script: mvn clean verify
+
+after_success:
+ - echo "Build was successful. $TRAVIS_TEST_RESULT"
