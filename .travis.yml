@@ -4,7 +4,7 @@ sudo: false
 before_script:
  - echo "Start build"
 
-script: mvn clean verify
+script: ant main
 
 after_success:
  - echo "Build was successful. $TRAVIS_TEST_RESULT"
