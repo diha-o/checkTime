@@ -2,12 +2,11 @@ language: java
 jdk:
   - oraclejdk8
   - oraclejdk7
-  - openjdk7
 
 before_script:
  - echo "Start build"
 
-script: mvn test -f ./pom.xml
+script: mvn test
 
 after_success:
  - echo "Build was successful. $TRAVIS_TEST_RESULT"
